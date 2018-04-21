@@ -17,8 +17,7 @@ class Note extends Component {
 
   addNote(title, text, update) {
     return this.props.createNote(title, text, update);
-  } 
-
+  }
 
   updateNote(title, text, update) {
     return this.props.updateNote(title, text, update);
@@ -71,8 +70,6 @@ class Note extends Component {
   }
 
   render() {
-
-
     return (
       <View>
         <View>
@@ -102,7 +99,6 @@ class Note extends Component {
             onPress={() => {
               this.setState({ title: "", text: "", update: false });
               this.props.navigation.goBack();
-              
             }}
             title={"Back"}
           />
