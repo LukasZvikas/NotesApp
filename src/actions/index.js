@@ -8,4 +8,9 @@ export const createNote = (title, text, update) => {
   };
 };
 
-
+export const updateNote = (title, text) => {
+  return {
+    type: UPDATE_NOTE,
+    payload: {title, text}
+  };
+};

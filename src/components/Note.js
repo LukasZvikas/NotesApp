@@ -71,6 +71,8 @@ class Note extends Component {
   }
 
   render() {
+
+
     return (
       <View>
         <View>
