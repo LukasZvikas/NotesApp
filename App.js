@@ -10,7 +10,6 @@ import Note from "./src/components/Note";
 
 export default class App extends Component {
   render() {
-    console.log(this.props);
     const MainNav = TabNavigator(
       {
         noteList: { screen: NoteList },

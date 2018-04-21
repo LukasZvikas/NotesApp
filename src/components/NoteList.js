@@ -13,6 +13,7 @@ class NoteList extends Component {
     this.state = { notes: this.props.noteList };
   }
 
+
   renderNotes(noteList) {
     if (noteList.length == 0) {
       return (
@@ -38,6 +39,7 @@ class NoteList extends Component {
               this.props.navigation.navigate("newNote", {
                 title: note.title,
                 text: note.text,
+                id: note.id,
                 update: true
               });
             }}
@@ -49,6 +51,7 @@ class NoteList extends Component {
               this.props.navigation.navigate("newNote", {
                 title: note.title,
                 text: note.text,
+                id: note.id,
                 update: true
               });
             }}
@@ -63,11 +66,13 @@ class NoteList extends Component {
   }
 
   render() {
+    console.log("NOTELIST", this.props.noteList)
     return (
       <View>
         {this.renderNotes(this.props.noteList)}
         <Button
           onPress={() => {
+
             this.props.navigation.navigate("newNote", {
               title: "",
               text: "",
