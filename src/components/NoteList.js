@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchNotes } from "../actions";
 import { View, Text } from "react-native";
 import { Button } from "react-native-elements";
-import Note from "./newNote";
+import Note from "./Note";
 
 class NoteList extends Component {
   constructor(props) {
