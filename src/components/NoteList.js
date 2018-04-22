@@ -28,21 +28,22 @@ class NoteList extends Component {
     return {
       title: "Your Notes",
       headerStyle: {
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#00FA9A",
         borderColor: "black",
         shadowOffset: { height: 0.1 },
         shadowColor: "black",
         shadowOpacity: 0.5
       },
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#000",
+        color: "#fff",
         fontSize: 25,
         fontFamily: "open-sans-regular"
       },
       headerRight: (
         <Button
-          backgroundColor="#f7f7f7"
-          color="rgba(0, 122, 255, 1)"
+          backgroundColor="#00FA9A"
+          
           fontSize="20"
           onPress={() => {
             navigation.navigate("newNote", {
@@ -60,13 +61,13 @@ class NoteList extends Component {
   renderNotes(noteList) {
     if (noteList.length == 0) {
       return (
-        <View>
-          <Text>No Notes Yet</Text>
-          <Text>No Notes Yet</Text>
-          <Text>No Notes Yet</Text>
-          <Text>No Notes Yet</Text>
-          <Text>No Notes Yet</Text>
-        </View>
+        <Card containerStyle={styles.cardStyleIndex}>
+          <View >
+          <Text style={styles.indexTitle}>No Notes Yet!</Text>
+          <Text style={styles.indexText}>Press New To Add a Note</Text>
+          </View>
+ 
+        </Card>
       );
     }
     return noteList.map(note => {
@@ -98,12 +99,8 @@ class NoteList extends Component {
 
   render() {
     return (
-      <LinearGradient
-        colors={["#66a6ff", "#89f7fe"]}
-        style={styles.linearGradient}
-      >
         <View>{this.renderNotes(this.props.noteList)}</View>
-      </LinearGradient>
+   
     );
   }
 }
@@ -115,6 +112,31 @@ function mapStateToProps(state) {
 }
 
 const styles = {
+  indexDetails: {
+    justifyContent: 'center',
+    alignItems: "center",
+
+  },
+  cardStyleIndex: {
+    shadowOffset: { height: 0.5 },
+    shadowColor: "black",
+    shadowOpacity: 1,
+    justifyContent: 'center',
+    alignItems: "center",
+    margin: 0,
+    height: "100%"
+  },
+  indexTitle: {
+    fontSize: 30,
+    fontFamily: "open-sans-semibold",
+    textAlign: "center"
+  },
+  indexText: {
+    fontSize: 22,
+    marginTop: 20,
+    fontFamily: "open-sans-regular"
+  },
+
   details: {
     marginTop: 10,
     marginBottom: 10,
@@ -123,9 +145,7 @@ const styles = {
     alignItems: "flex-start"
   },
   cardStyle: {
-    shadowOffset: { height: 0.5 },
-    shadowColor: "black",
-    shadowOpacity: 1
+    margin: 0
   },
   linearGradient: {
     flex: 1
