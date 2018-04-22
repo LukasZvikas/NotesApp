@@ -16,7 +16,7 @@ class Note extends Component {
     };
   }
 
-  addNote(title, text, update) {
+  addNote(title, text) {
     return this.props.createNote(title, text);
   }
 
@@ -24,31 +24,35 @@ class Note extends Component {
     return this.props.updateNote(title, text, id);
   }
 
-  onDone() {
-    if (this.state.update && this.state.title != "") {
-      console.log("UPDATE");
-      this.updateNote(this.state.title, this.state.text, this.state.id);
+  onDone(id, check) {
+    if (check && this.state.title != "") {
+      this.updateNote(this.state.title, this.state.text, id);
     } else {
-      console.log("CREATE");
       this.addNote(this.state.title, this.state.text);
     }
     return true;
   }
   render() {
-    console.log("FROM NAV", this.props.navigation.state);
+    const { params } = this.props.navigation.state;
+    const noteTitle = params ? params.title : null;
+    const noteText = params ? params.text : null;
+    const noteCheck = params ? params.update : null;
+    const noteId = params ? params.id : null;
+    console.log("noteText", noteText)
+
     return (
       <View>
         <View>
           <FormLabel>>Title</FormLabel>
           <FormInput
-            value={this.props.navigation.state.params.title}
+            value={noteTitle}
             onChangeText={title => {
               this.setState({ title });
             }}
           />
           <FormLabel>Content</FormLabel>
           <FormInput
-            value={this.props.navigation.state.params.text}
+            value={noteText}
             onChangeText={text => {
               this.setState({ text });
             }}
@@ -57,8 +61,7 @@ class Note extends Component {
         <View>
           <Button
             onPress={() => {
-              this.setState({ title: "", text: "", update: false });
-              this.onDone();
+              this.onDone(noteId, noteCheck);
               this.props.navigation.goBack();
             }}
             title={"Done"}

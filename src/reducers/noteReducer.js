@@ -10,20 +10,17 @@ export default function(state = [], action) {
       const note = _.merge(
         action.payload,
         { id: state.length },
-        {update: false}
+        { update: false }
       );
       const newState = [...state, note];
       return newState;
     case UPDATE_NOTE:
-      console.log("update", action.payload.id)
-      const newArray = _.remove(state, (data) => {
-        console.log("DATA", data)
-          return data.id != action.payload.id
-        })
-      console.log("NEWARRAY", newArray);
-        const editedNote = _.merge({ id: newArray.length }, action.payload);
-        const updatedState = [...newArray, editedNote]
-        return updatedState
+      const newArray = _.remove(state, data => {
+        return data.id != action.payload.id;
+      });
+      const editedNote = _.merge({ id: newArray.length }, action.payload);
+      const updatedState = [...newArray, editedNote];
+      return updatedState;
     default:
       return state;
   }
