@@ -17,9 +17,10 @@ export default class App extends Component {
       },
       {
         tabBarOptions: {
-        labelStyle: { fontSize: 12 }
+          labelStyle: { fontSize: 12 }
+        }
       }
-    });
+    );
 
     return (
       <Provider store={store}>

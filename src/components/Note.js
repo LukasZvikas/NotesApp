@@ -5,6 +5,7 @@ import { Button, Card } from "react-native-elements";
 import { LinearGradient, Font } from "expo";
 import { connect } from "react-redux";
 import { createNote, updateNote } from "../actions";
+import { styles } from "../styles/noteStyles";
 
 class Note extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Note extends Component {
       fontLoaded: false
     };
   }
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation, state }) => {
     return {
       title: "New Note",
       headerStyle: {
@@ -27,22 +28,34 @@ class Note extends Component {
         shadowColor: "black",
         shadowOpacity: 0.5
       },
+      headerBackTitleStyle: { fontWeight: "bold", fontSize: 20 },
       headerTintColor: "#fff",
       headerTitleStyle: {
-        color: "#fff",
         fontSize: 25
       }
+      // headerRight: (
+      //   <Button
+      //     backgroundColor="#00FA9A"
+      //     fontSize="20"
+      //     fontWeight="bold"
+      //     onPress={() => {
+      //       this.onDone(id, check);
+      //       goBack();
+      //     }}
+      //     title={"Done"}
+      //   />
+      // )
     };
   };
 
   componentDidMount() {
-     Font.loadAsync({
+    Font.loadAsync({
       "open-sans-semibold": require("../../assets/Open_Sans/OpenSans-SemiBold.ttf"),
       "open-sans-regular": require("../../assets/Open_Sans/OpenSans-Regular.ttf")
     });
 
     this.setState({ fontLoaded: true });
-    console.log(this.state);
+
   }
 
   addNote(title, text) {
@@ -67,7 +80,6 @@ class Note extends Component {
     const noteText = params ? params.text : null;
     const noteCheck = params ? params.update : null;
     const noteId = params ? params.id : null;
-    console.log(this.state.fontLoaded)
     return (
       <View>
         {this.state.fontLoaded ? (
@@ -92,7 +104,7 @@ class Note extends Component {
               />
             </View>
             <View style={{ alignItems: "center", marginTop: 20 }}>
-              <Button
+               <Button
                 buttonStyle={styles.button}
                 onPress={() => {
                   this.onDone(noteId, noteCheck);
@@ -113,30 +125,5 @@ function mapStateToProps(state) {
     noteList: state.notes
   };
 }
-
-const styles = {
-  titleStyle: {
-    marginTop: 12,
-    fontSize: 25
-  },
-  textStyle: {
-    fontSize: 25,
-    marginTop: 20
-  },
-  cardStyle: {
-    shadowOffset: { height: 0.5 },
-    shadowColor: "black",
-    shadowOpacity: 1,
-    height: "100%",
-    margin: 0
-  },
-  button: {
-    backgroundColor: "#00FA9A",
-    width: 150,
-    borderColor: "none",
-    borderRadius: 25,
-    justifyContent: "center"
-  }
-};
 
 export default connect(mapStateToProps, { createNote, updateNote })(Note);

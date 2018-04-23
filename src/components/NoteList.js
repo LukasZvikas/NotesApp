@@ -1,11 +1,12 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchNotes } from "../actions";
-import { View, Text, StyleSheet } from "react-native";
+import { fetchNotes, removeNote } from "../actions";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { LinearGradient, Font } from "expo";
-import { Button, Card } from "react-native-elements";
+import { Button, Card, Icon } from "react-native-elements";
 import Note from "./Note";
+import { styles } from "../styles/noteListStyles";
 
 class NoteList extends Component {
   constructor(props) {
@@ -21,12 +22,13 @@ class NoteList extends Component {
     });
 
     this.setState({ fontLoaded: true });
-    console.log(this.state);
   }
+
+  this;
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Your Notes",
+      title: "Notes",
       headerStyle: {
         backgroundColor: "#00FA9A",
         borderColor: "black",
@@ -34,7 +36,7 @@ class NoteList extends Component {
         shadowColor: "black",
         shadowOpacity: 0.5
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
         color: "#fff",
         fontSize: 25,
@@ -43,8 +45,8 @@ class NoteList extends Component {
       headerRight: (
         <Button
           backgroundColor="#00FA9A"
-          
           fontSize="20"
+          fontWeight="bold"
           onPress={() => {
             navigation.navigate("newNote", {
               title: "",
@@ -62,11 +64,10 @@ class NoteList extends Component {
     if (noteList.length == 0) {
       return (
         <Card containerStyle={styles.cardStyleIndex}>
-          <View >
-          <Text style={styles.indexTitle}>No Notes Yet!</Text>
-          <Text style={styles.indexText}>Press New To Add a Note</Text>
+          <View>
+            <Text style={styles.indexTitle}>No Notes Yet!</Text>
+            {/*<Text style={styles.indexText}>Press New To Add a Note</Text>*/}
           </View>
- 
         </Card>
       );
     }
@@ -90,6 +91,27 @@ class NoteList extends Component {
               </Text>
               <Text style={styles.noteBoxText}>{note.text}</Text>
             </View>
+            <View style={styles.iconStyle}>
+              <Icon
+                name="trash"
+                type="entypo"
+                color="#ff004c"
+                size={35}
+                onPress={() => {
+                  Alert.alert(
+                    "Delete Note",
+                    "Are your sure you want to delete this note?",
+                    [
+                      {
+                        text: "Yes",
+                        onPress: () => this.props.removeNote(note.id)
+                      },
+                      { text: "No" }
+                    ]
+                  );
+                }}
+              />
+            </View>
           </Card>
         );
       }
@@ -99,8 +121,9 @@ class NoteList extends Component {
 
   render() {
     return (
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View>{this.renderNotes(this.props.noteList)}</View>
-   
+      </ScrollView>
     );
   }
 }
@@ -111,52 +134,4 @@ function mapStateToProps(state) {
   };
 }
 
-const styles = {
-  indexDetails: {
-    justifyContent: 'center',
-    alignItems: "center",
-
-  },
-  cardStyleIndex: {
-    shadowOffset: { height: 0.5 },
-    shadowColor: "black",
-    shadowOpacity: 1,
-    justifyContent: 'center',
-    alignItems: "center",
-    margin: 0,
-    height: "100%"
-  },
-  indexTitle: {
-    fontSize: 30,
-    fontFamily: "open-sans-semibold",
-    textAlign: "center"
-  },
-  indexText: {
-    fontSize: 22,
-    marginTop: 20,
-    fontFamily: "open-sans-regular"
-  },
-
-  details: {
-    marginTop: 10,
-    marginBottom: 10,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-start"
-  },
-  cardStyle: {
-    margin: 0
-  },
-  linearGradient: {
-    flex: 1
-  },
-  noteBoxTitle: {
-    fontSize: 20,
-    fontFamily: "open-sans-semibold"
-  },
-  noteBoxText: {
-    fontSize: 15,
-    fontFamily: "open-sans-regular"
-  }
-};
-export default connect(mapStateToProps, { fetchNotes })(NoteList);
+export default connect(mapStateToProps, { fetchNotes, removeNote })(NoteList);
