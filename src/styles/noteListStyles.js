@@ -4,7 +4,9 @@ export const styles = {
     alignItems: "center"
   },
   iconStyle: {
-    alignItems: "flex-end"
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   },
   cardStyleIndex: {
     shadowOffset: { height: 0.2 },
@@ -16,14 +18,17 @@ export const styles = {
     height: "100%"
   },
   indexTitle: {
-    fontSize: 35,
-    fontFamily: "open-sans-semibold",
+    fontSize: 28,
+    fontFamily: "SFSemibold",
     textAlign: "center"
   },
   indexText: {
+    marginRight: 5,
+    marginLeft: 5,
     fontSize: 22,
     marginTop: 20,
-    fontFamily: "open-sans-regular"
+    fontFamily: "SFMedium",
+    lineHeight: 40
   },
 
   details: {
@@ -39,14 +44,19 @@ export const styles = {
     flex: 1
   },
   noteBoxTitle: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginRight: 15,
+    marginLeft: 15,
+    justifyContent: "center",
+    alignItems: "center",
     fontSize: 25,
-    fontFamily: "open-sans-semibold"
+    fontFamily: "SFSemibold"
   },
   noteBoxText: {
+    marginTop: 5,
+    marginRight: 15,
+    marginLeft: 15,
     marginBottom: 10,
-    fontSize: 20,
-    fontFamily: "open-sans-regular"
+    fontSize: 18,
+    fontFamily: "SFMedium"
   }
 };

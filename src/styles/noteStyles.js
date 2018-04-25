@@ -1,11 +1,13 @@
 export const styles = {
   titleStyle: {
     marginTop: 12,
-    fontSize: 25
+    fontSize: 25,
+    fontWeight: "bold"
   },
   textStyle: {
     fontSize: 25,
-    marginTop: 20
+    marginTop: 20,
+    // fontFamily: "SFMedium"
   },
   cardStyle: {
     shadowOffset: { height: 0.5 },
