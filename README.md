@@ -8,8 +8,8 @@ Also, custom styling is implemented on top of react-native-elements library to c
 
 Fully supported for IOS devices. Works on Android as well.
 
-Below is a link to a project demostration video on YouTube.
+Below is a link to a project demonstration video on YouTube.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-n9eK1L7d_U"
 target="_blank"><img src="http://img.youtube.com/vi/-n9eK1L7d_U/0.jpg" 
-width="240" height="180" border="10" /></a>
+width="260" height="200" border="10" /></a>
