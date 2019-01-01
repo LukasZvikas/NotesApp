@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchNotes, removeNote } from "../actions";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { LinearGradient, Font } from "expo";
-import { Button, Card, Icon } from "react-native-elements";
+import { Button, Card, Icon, SearchBar } from "react-native-elements";
 import Note from "./Note";
 import Swipeout from "react-native-swipeout";
 import { styles } from "../styles/noteListStyles";
@@ -13,7 +13,7 @@ class NoteList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { notes: this.props.noteList, fontLoaded: false };
+    this.state = { notes: "", fontLoaded: false, searchTerm: "" };
   }
 
   async componentDidMount() {
@@ -22,7 +22,7 @@ class NoteList extends Component {
       SFSemiBold: require("../../assets/SFCompact/SFCompactDisplay-Semibold.otf")
     });
 
-    this.setState({ fontLoaded: true });
+    this.setState({ notes: this.props.noteList, fontLoaded: true });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -44,8 +44,8 @@ class NoteList extends Component {
       headerRight: (
         <Icon
           backgroundColor="#00FA9A"
-          name="add-to-list"
-          type="entypo"
+          name="note-add"
+          type="MaterialIcons"
           color="#007aff"
           size={32}
           onPress={() => {
@@ -68,6 +68,10 @@ class NoteList extends Component {
   };
 
   renderNotes(noteList) {
+    console.log("p", this.props.noteList.length);
+
+    // if (this.props.noteList.length > 0 && this.state.searchTerm != "") {
+
     if (noteList.length == 0) {
       return (
         <Card containerStyle={styles.cardStyleIndex}>
@@ -81,6 +85,14 @@ class NoteList extends Component {
           </View>
         </Card>
       );
+    // } else {
+    //   return (
+    //     <Card containerStyle={styles.cardStyleIndex}>
+    //       <View>
+    //         <Text style={styles.indexText}>No Results!</Text>
+    //       </View>
+    //     </Card>
+    //   );
     }
 
     return noteList.map(note => {
@@ -138,11 +150,34 @@ class NoteList extends Component {
     });
   }
 
+  updateSearch(event) {
+    this.setState({ searchTerm: event });
+  }
+
   render() {
-    console.log(this.props.noteList);
+    const noteList = this.props.noteList.filter(note => {
+      return (
+        note.title.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) !=
+        -1
+      );
+    });
+
+    console.log("asdfsdf", noteList);
+
     return (
       <ScrollView contentContainerStyle={{ flex: 1 }}>
-        <View>{this.renderNotes(this.props.noteList)}</View>
+        <View>
+          <SearchBar
+            round
+            lightTheme
+            onChangeText={term => {
+              this.updateSearch(term);
+            }}
+            containerStyle={{ backgroundColor: "#fff" }}
+            inputStyle={{ backgroundColor: "#e6e6e6" }}
+          />
+          {this.renderNotes(noteList)}
+        </View>
       </ScrollView>
     );
   }

@@ -14,11 +14,6 @@ export default class App extends Component {
       {
         noteList: { screen: NoteList },
         newNote: { screen: Note }
-      },
-      {
-        tabBarOptions: {
-          labelStyle: { fontSize: 12 }
-        }
       }
     );
 

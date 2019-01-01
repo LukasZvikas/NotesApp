@@ -12,21 +12,21 @@ export const styles = {
     shadowOffset: { height: 0.2 },
     shadowColor: "black",
     shadowOpacity: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "start",
+    alignItems: "left",
     margin: 0,
     height: "100%"
   },
   indexTitle: {
-    fontSize: 28,
+    fontSize: 20,
     fontFamily: "SFSemibold",
-    textAlign: "center"
+    alignItems: "left",
+    fontWeight: 0.4
   },
   indexText: {
     marginRight: 5,
-    marginLeft: 5,
-    fontSize: 22,
-    marginTop: 20,
+    fontSize: 16,
+    marginTop: 8,
     fontFamily: "SFMedium",
     lineHeight: 40
   },
